@@ -1,0 +1,20 @@
+.btn{
+    border: 1px solid black;
+    height: 30px;
+    margin-bottom: 4.6px;
+    line-height: 10px;
+    margin-left: 5px;
+    transition: all 0.2s;
+}
+.btn:hover{
+    box-shadow: 0.3px 0.3rem 0.3rem rgba(0,0,0,.3);
+    transform: translateY(-1px);
+}
+
+.jumbotron{
+    margin-block-end: 5px;
+    padding-bottom: 15px;
+}
+.jumbotron p{
+    font-style: italic;
+}

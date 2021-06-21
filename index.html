@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <title>Hops Web Application</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>Hops Web Application</h1>
+    </div>
+
+    <div id="app">
+        <h2>All hops</h2>
+
+        <button v-on:click="getAllHops" class="btn btn-success">All hops</button>
+
+        <!-- Kan skrives hops.length > 6 fx - det viser, at condition er, at arrayet (hops) skal være større end 6.
+        Lige nu er der 6 obejtker i arrayet, derfor ville condition ikke være mødt, og tabellen kan ikke vises.
+        Er der IKKE angivet noget udover length, får den bare besked på at udskrive længden af arrayet. -->
+        <table id="hopslist" v-if="hops.length" class="table table-striped">
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Alpha Acid</th>
+                <th scope="col">Harvest Year</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+            </thead>
+            <tbody>
+                <tr v-for="hops in hops">
+                    <td>{{hops.id}}</td>
+                    <td>{{hops.name}}</td>
+                    <td>{{hops.alphaAcid}}</td>
+                    <td>{{hops.harvestYear}}</td>
+                    <td>{{hops.price}}</td>
+                    <td>{{hops.stock}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button v-on:click="sortHops" class="btn btn-success">Sort hops</button>
+
+        <table id="sorthopslist" v-if="sorthops.length" class="table table-striped">
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Alpha Acid</th>
+                <th scope="col">Harvest Year</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+            </thead>
+            <tbody>
+                <tr v-for="sorthops in sorthops">
+                    <td>{{sorthops.id}}</td>
+                    <td>{{sorthops.name}}</td>
+                    <td>{{sorthops.alphaAcid}}</td>
+                    <td>{{sorthops.harvestYear}}</td>
+                    <td>{{sorthops.price}}</td>
+                    <td>{{sorthops.stock}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button v-on:click="filterHops" class="btn btn-success">Filter hops</button>
+        <input v-model="maxPrice" placeholder="Max price" type="number">
+
+        <table id="filterhopslist" v-if="filterhops.length" class="table table-striped">
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Alpha Acid</th>
+                <th scope="col">Harvest Year</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+            </thead>
+            <tbody>
+                <tr v-for="filterhops in filterhops">
+                    <td>{{filterhops.id}}</td>
+                    <td>{{filterhops.name}}</td>
+                    <td>{{filterhops.alphaAcid}}</td>
+                    <td>{{filterhops.harvestYear}}</td>
+                    <td>{{filterhops.price}}</td>
+                    <td>{{filterhops.stock}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Get by id</h2>
+        <input v-model="id" placeholder="Search for id..." type="number">
+        <button v-on:click="getById(id)" class="btn btn-primary">Get by id</button>
+        
+        <div v-if="singleHop">
+            {{singleHop.id}} {{singleHop.name}} {{singleHop.alphaAcid}} {{singleHop.harvestYear}} {{singleHop.price}} {{singleHop.Stock}}
+        </div>
+
+        <h2>Add new hop</h2>
+        <input v-model="addData.name" placeholder="Name" type="text">
+        <input v-model="addData.alphaAcid" placeholder="Alpha Acid" type="number">
+        <input v-model="addData.harvestYear" placeholder="Harvest Year" type="number">
+        <input v-model="addData.price" placeholder="Price" type="number">
+        <input v-model="addData.stock" placeholder="Stock" type="number">
+        <button v-on:click="addHop()" class="btn btn-primary">Add</button>
+
+        <h2>Delete hop</h2>
+        <input v-model="deleteId" placeholder="Hop id..." type="number">
+        <button v-on:click="deleteHop(deleteId)" class="btn btn-danger">Delete</button>
+
+        <h2>Update stock status</h2>
+        <input v-model="updateData.id" placeholder="Hop id..." type="number">
+        <input v-model="updateData.stock" placeholder="New stock..." type="number">
+        <button v-on:click="updateStock()" class="btn btn-success">Update</button>
+
+    </div>
+    
+    <script src="js/index.js"></script>
+</body>
+</html>
